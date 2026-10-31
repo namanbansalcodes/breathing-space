@@ -1,0 +1,24 @@
+src/**
+test/**
+docs/**
+scripts/**
+.vscode/**
+tsconfig.json
+vitest.config.ts
+.gitignore
+.gitattributes
+**/*.map
+
+# tsc output — only the esbuild bundle and the grammar ship
+out/**/*.js
+out/engine/**
+out/languages/**
+
+# build-time only
+node_modules/@vscode/**
+node_modules/.bin/**
+node_modules/web-tree-sitter/debug/**
+node_modules/web-tree-sitter/*.d.ts
+node_modules/web-tree-sitter/*.d.cts
+node_modules/web-tree-sitter/README.md
+node_modules/web-tree-sitter/web-tree-sitter.js

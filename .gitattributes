@@ -1,0 +1,2 @@
+# Fixtures are byte-exact: git must never normalize their line endings.
+test/fixtures/** -text

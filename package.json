@@ -1,0 +1,138 @@
+{
+  "name": "breathing-space",
+  "displayName": "Breathing Space",
+  "description": "Inserts blank lines at meaningful boundaries so dense code reads faster.",
+  "version": "0.0.1",
+  "license": "MIT",
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#1f3b4d",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Formatters"
+  ],
+  "main": "./out/extension.cjs",
+  "type": "module",
+  "activationEvents": [
+    "onLanguage:python"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "breathingSpace.addSpace",
+        "title": "Add Breathing Space"
+      },
+      {
+        "command": "breathingSpace.addSpaceToFolder",
+        "title": "Add Breathing Space to Folder"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "breathingSpace.addSpace",
+        "key": "ctrl+alt+b",
+        "mac": "cmd+alt+b",
+        "when": "editorTextFocus && !editorReadonly"
+      }
+    ],
+    "configuration": {
+      "title": "Breathing Space",
+      "properties": {
+        "breathingSpace.density": {
+          "type": "string",
+          "enum": [
+            "compact",
+            "normal",
+            "airy"
+          ],
+          "default": "normal",
+          "description": "How much air to add. compact = early exits and block ends only; normal = adds branches, comments and docstrings; airy = also separates consecutive multi-line statements."
+        },
+        "breathingSpace.folder.excludeDirs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            ".git",
+            ".hg",
+            ".svn",
+            ".tox",
+            ".nox",
+            ".venv",
+            "venv",
+            "env",
+            ".mypy_cache",
+            ".pytest_cache",
+            ".ruff_cache",
+            "__pycache__",
+            "node_modules",
+            "site-packages",
+            "build",
+            "dist"
+          ],
+          "description": "Directory names skipped when adding breathing space to a whole folder."
+        },
+        "breathingSpace.folder.save": {
+          "type": "boolean",
+          "default": true,
+          "description": "Save each file changed by a folder run. Turn off to leave the edits unsaved so you can review them first."
+        }
+      }
+    },
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "breathingSpace.addSpaceToFolder",
+          "when": "explorerResourceIsFolder",
+          "group": "7_modification"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "bundle": "esbuild src/extension.ts --bundle --platform=node --format=cjs --external:vscode --external:web-tree-sitter --outfile=out/extension.cjs --minify",
+    "copy-wasm": "node scripts/copy-wasm.mjs",
+    "vscode:prepublish": "npm run build && npm run bundle && npm run copy-wasm",
+    "test": "vitest run",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/vscode": "^1.90.0",
+    "@vscode/tree-sitter-wasm": "^0.3.1",
+    "@vscode/vsce": "^3.9.2",
+    "esbuild": "^0.28.2",
+    "typescript": "^5.6.0",
+    "vitest": "^4.1.10"
+  },
+  "dependencies": {
+    "web-tree-sitter": "^0.26.11"
+  },
+  "publisher": "namannbansal",
+  "author": {
+    "name": "Naman Bansal",
+    "email": "naman.primary@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/namanbansalcodes/breathing-space.git"
+  },
+  "bugs": {
+    "url": "https://github.com/namanbansalcodes/breathing-space/issues"
+  },
+  "homepage": "https://github.com/namanbansalcodes/breathing-space#readme",
+  "keywords": [
+    "python",
+    "formatter",
+    "blank lines",
+    "whitespace",
+    "readability",
+    "tree-sitter"
+  ]
+}
